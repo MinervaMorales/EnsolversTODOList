@@ -4,7 +4,7 @@
       <tbody>
         <tr *ngFor="let item of todoList">
           <td>
-            <mat-checkbox [checked]="markChecked(item.completed)" color=warn></mat-checkbox>
+            <mat-checkbox (change)="updateStatus($event, item)" [checked]="markChecked(item.completed)" color=warn></mat-checkbox>
           </td>
           <td>
             {{ item.name }}

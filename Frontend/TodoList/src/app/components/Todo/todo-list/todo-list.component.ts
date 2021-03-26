@@ -91,17 +91,17 @@ export class TodoListComponent implements OnInit {
  
   }
 
-  public updateStatus(todoItem)
+  public updateStatus(event, todoItem)
   {
-    try
-    {
-      this.todoListService.update(todoItem);
-      alert("Task Successfully Updated");
-    }
-    catch(error)
-    {
-      alert("Unexpected Error");
-    }
+    todoItem.completed = Number(event.checked);
+    this.todoListService.update(todoItem).subscribe(
+      response=> {
+        
+        this.getItems();
+        alert("Task Successfully Completed");
+      }, error =>{
+        alert("Unexpected Error");
+      });
   }
 
   public markChecked(completed)
