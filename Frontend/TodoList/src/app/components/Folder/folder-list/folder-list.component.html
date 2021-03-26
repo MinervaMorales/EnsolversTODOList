@@ -1,0 +1,44 @@
+<div  class="app-container">
+    <div class="table-wrapper">
+      <table class="table table-bordered">
+        <tbody>
+          <tr *ngFor="let item of foldersList">
+            <td>
+              - {{ item.name }}
+            </td>
+         
+            <td>
+                <a style="color: blue; text-decoration: underline; cursor: pointer;">
+                View Items
+              </a>
+            </td>
+            <td>
+                <a style="color: blue; text-decoration: underline; cursor: pointer;" (click)="enableEdit(item)">
+                  Edit
+                </a>
+              </td>
+              <td>
+                <a style="color: blue; text-decoration: underline; cursor: pointer;" (click)="delete(item)">
+                  Remove
+                </a>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex align-items-center mb-3" style="margin-top: 5vh;">
+      <div class="form-group mr-3 mb-0">
+        <input [(ngModel)]="folder.name" type="text" class="form-control" id="formGroupExampleInput"
+          placeholder="New Folder" />
+      </div>
+      <button *ngIf="!editMode" type="button" class="btn btn-primary mr-3" style="margin-left: 1vw;" [disabled]="folder.name =='' || !folder.name" (click)="add()">
+        Add
+      </button>
+      <button *ngIf="editMode" class="btn btn-primary mr-3" style="margin-left: 1vw;" [disabled]="folder.name =='' || !folder.name" (click)="edit()">
+        Edit
+      </button>
+      <button *ngIf="editMode" class="btn btn-primary mr-3" color=warn style="margin-left: 1vw;"  (click)="cancelEdit()">
+        Cancel
+      </button>
+    </div>
+  </div>
