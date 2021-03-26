@@ -31,6 +31,7 @@ public class FoldersController {
     }
 
     @GetMapping("/folders/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public Optional<Folders> findAll(@PathVariable("id") int id)
     {
         try
@@ -44,7 +45,8 @@ public class FoldersController {
     }
 
     @PostMapping("/folders/add")
-    public void add(Folders folder)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public void add(@RequestBody Folders folder)
     {
         try
         {
@@ -57,7 +59,8 @@ public class FoldersController {
     }
 
     @PutMapping("/folders/update")
-    public void update(Folders folder)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public void update(@RequestBody Folders folder)
     {
         try
         {
@@ -70,6 +73,7 @@ public class FoldersController {
     }
 
     @GetMapping("/folders/delete/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public void delete(@PathVariable("id") int id)
     {
         try

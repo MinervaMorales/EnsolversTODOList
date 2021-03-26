@@ -15,6 +15,7 @@ export class TodoListComponent implements OnInit {
   public listData:MatTableDataSource<any>;
 
   public todoList: TodoItem[];
+  public editMode: boolean = false;
   public todoItem: TodoItem = new TodoItem();
 
   private todoListService: TodoListService = this.injector.get(TodoListService);
@@ -41,10 +42,9 @@ export class TodoListComponent implements OnInit {
 
   public  add()
   {
-
     this.todoListService.add(this.todoItem).subscribe(
       response=> {
-        
+        this.todoItem = new TodoItem();
         this.getItems();
         alert("Task Successfully Added");
       }, error =>{
@@ -52,9 +52,29 @@ export class TodoListComponent implements OnInit {
       });
   }
 
-  public edit(todoItem)
+  public enableEdit(todoItem)
   {
-    //this.todoListService.update(todoItem)
+    this.todoItem = new TodoItem(todoItem);
+    this.editMode = true;
+  }
+
+  public cancelEdit()
+  {
+    this.todoItem = new TodoItem();
+    this.editMode = false;
+  }
+
+  public edit()
+  {
+    this.todoListService.update(this.todoItem).subscribe(
+      response=> {
+        
+        this.getItems();
+        this.cancelEdit();
+        alert("Task Successfully Updated");
+      }, error =>{
+        alert("Unexpected Error");
+      });
   }
 
   public delete(todoItem)

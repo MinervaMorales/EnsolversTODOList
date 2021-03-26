@@ -35,17 +35,33 @@ export class FolderListComponent implements OnInit {
   
   public add()
   {
-    this.folderService.add(this.folder);
+    this.folderService.add(this.folder).subscribe(
+      response=> {
+
+        this.getFolders();
+        alert("Folder Successfully Added");
+
+      }, error =>{
+        alert("Unexpected Error");
+      });
   }
 
   public edit(folder)
   {
-    //this.folderService.update(folder)
+    this.folder = folder;
+    
   }
 
   public delete(folder)
   {
-    this.folderService.delete(folder.id)
+    this.folderService.delete(folder.id).subscribe(
+      response=> {
+        
+        this.getFolders();
+        alert("Folder Successfully Remove");
+      }, error =>{
+        alert("Unexpected Error");
+      });
   }
 
 }
