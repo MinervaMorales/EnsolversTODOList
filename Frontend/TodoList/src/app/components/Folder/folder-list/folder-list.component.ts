@@ -12,6 +12,7 @@ export class FolderListComponent implements OnInit {
   
   public foldersList: Folder[];
   public folder: Folder = new Folder();
+  public editMode: boolean = false;
   private folderService: FolderService= this.injector.get(FolderService);
   
   constructor(protected injector: Injector) { }
@@ -37,8 +38,8 @@ export class FolderListComponent implements OnInit {
   {
     this.folderService.add(this.folder).subscribe(
       response=> {
-
         this.getFolders();
+        this.folder = new Folder();
         alert("Folder Successfully Added");
 
       }, error =>{
@@ -46,10 +47,29 @@ export class FolderListComponent implements OnInit {
       });
   }
 
-  public edit(folder)
+  public enableEdit(folder)
   {
-    this.folder = folder;
-    
+    this.folder = new Folder(folder);
+    this.editMode = true;
+  }
+
+  public cancelEdit()
+  {
+    this.folder = new Folder();
+    this.editMode = false;
+  }
+
+  public edit()
+  {
+    this.folderService.update(this.folder).subscribe(
+      response=> {
+        
+        this.getFolders();
+        this.cancelEdit();
+        alert("Folder Successfully Updated");
+      }, error =>{
+        alert("Unexpected Error");
+      });
   }
 
   public delete(folder)

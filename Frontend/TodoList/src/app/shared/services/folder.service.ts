@@ -17,17 +17,17 @@ export class FolderService {
     return this.http.get<Folder[]>(`${environment.backendUrl}/folders/all`);
   }
 
-  public add(item: Folder)
+  public add(item: Folder):Observable<any>
   {
      return this.http.post(`${environment.backendUrl}/folders/add`, item);
   }
 
-  public update(item: Folder)
+  public update(item: Folder):Observable<any>
   {
      return this.http.put(`${environment.backendUrl}/folders/update`, item);
   }
 
-  public delete(id: number)
+  public delete(id: number):Observable<any>
   {
     return this.http.get(`${environment.backendUrl}/folders/delete/${id}`);
   }
